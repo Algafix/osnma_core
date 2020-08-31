@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: osnma-core
+Version: 0.0.1
+Summary: Implementation of OSNMA protocol functions and data
+Home-page: https://github.com/Algafix/osnma_core
+Author: Aleix Galan
+Author-email: algafi@protonmail.com
+License: UNKNOWN
+Description: # osnma_core
+        A Python module to help implementing Galileo OSNMA
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
