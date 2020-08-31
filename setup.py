@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="osnma_core",
-    version="0.0.1",
+    version="0.0.2",
     author="Aleix Galan",
     author_email="algafi@protonmail.com",
     description="Implementation of OSNMA protocol functions and data",
@@ -19,4 +19,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=[
+    'bitstring',
+    'ecdsa'
+    ],
 )
