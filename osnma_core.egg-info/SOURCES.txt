@@ -3,4 +3,5 @@ setup.py
 osnma_core.egg-info/PKG-INFO
 osnma_core.egg-info/SOURCES.txt
 osnma_core.egg-info/dependency_links.txt
+osnma_core.egg-info/requires.txt
 osnma_core.egg-info/top_level.txt
