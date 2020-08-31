@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OSNMACore Class &#8212; osnma_core 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to osnma_core’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-osnma_core">
+<span id="osnmacore-class"></span><h1>OSNMACore Class<a class="headerlink" href="#module-osnma_core" title="Permalink to this headline">¶</a></h1>
+<p>Module that implements the basic OSNMA actions</p>
+<dl class="py class">
+<dt id="osnma_core.OSNMACore">
+<em class="property">class </em><code class="sig-prename descclassname">osnma_core.</code><code class="sig-name descname">OSNMACore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svid</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">pubk_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that handle all the atributes and methods related to the OSNMA protocol. It stores data fields, process
+messages and perform verification of the different OSNMA structures. It also provides information about the internal
+stucture of the OSNMA message and auxiliat data such as bitmasks and tables in case the receiver wants to implement
+them by itself.</p>
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.dms_kroot_process">
+<code class="sig-name descname">dms_kroot_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms_kroot</span></em>, <em class="sig-param"><span class="n">pubk_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nma_header</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ds_length</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.dms_kroot_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process the message from the OSNMA DMS-KROOT. Reads and disfragment the fields from the
+dms_kroot message and then proceeds with the KROOT verification calling self.kroot_verification().
+Allows to load custom NMA Header, DS length and pubk path in case they are not already saved in the object.</p>
+<p>:param dms_kroot Bits from the DMS-KROOT OSNMA message.
+:type dms_kroot BitArray; formated String for bin, oct or hex</p>
+<p>:param pubk_path Path to the public key that will be used
+:type pubk_path String</p>
+<p>:param nma_header NMA Header to be used in the verification
+:type nma_header BitArray; formated String for bin, oct or hex</p>
+<p>:param ds_length Length of the DS field in DMS-KROOT message
+:type ds_length int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.dms_pkr_process">
+<code class="sig-name descname">dms_pkr_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms_pkr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.dms_pkr_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fragment the dms_pkr message in its fields and autenticates the new pkr key calling to
+self.pkr_verification</p>
+<p>:param dms_pkr Raw DMS-PRK message
+:type dms_pkr BitArray; formated String for bin, oct or hex</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.filter_nav_data_by_adkd">
+<code class="sig-name descname">filter_nav_data_by_adkd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">adkd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.filter_nav_data_by_adkd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters nav_data depending on the adkd parameter. Return all the nav_data to
+verifiy concatenated.</p>
+<p>:param nav_data List with 15 BitArray objects containing full pages of the sub frame
+:type nav_data list</p>
+<p>:param adkd Authentication Data and Key Delay that indicates the data to authenticate
+:type int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.format_mack_data">
+<code class="sig-name descname">format_mack_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_mack_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.format_mack_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of list with the mack blocks and each entry.</p>
+<p>:param raw_mack_data Subframe mack data with keys
+:type BitArray</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.kroot_verification">
+<code class="sig-name descname">kroot_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pub_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hash_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.kroot_verification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates the saved KROOT with the current Public Key or the path for the one
+passed as parameter.</p>
+<p>:param pub_key Path to the pem file with the pub_key used for the authentication
+:type pub_key String</p>
+<p>:param hash_name OpenSSL hash name to override the loaded one
+:type hash_name String</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data to the OSNMa Field indicated. Also triggers secondary actions related to
+certain fields that modify the size of other fields or the use of certain funcions.</p>
+<p>:param field_name Name of the OSNMA Field
+:type field_name String</p>
+<p>:param data Data of the field
+:type data BitArray; formated String for bin, oct or hex</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.load_batch">
+<code class="sig-name descname">load_batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a dictionary with OSNMA Fields to the object.</p>
+<p>:param data_dict Dictionary with key = field_name and data the data for the field
+:type dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.load_floating_key">
+<code class="sig-name descname">load_floating_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">gst_WN</span></em>, <em class="sig-param"><span class="n">gst_TOW</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load_floating_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a floating key of the chain to speed up chain authentication</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.mac0_verification">
+<code class="sig-name descname">mac0_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac0_verification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the mac0 verification from it’s entry in the first mack block, 
+the navigation data of the subframe and it’s correspondant key.</p>
+<p>:param mac_entry First MAC entry from the first mack block.
+:type mac_entry BitArray</p>
+<p>:param nav_data List with 15 BitArray objects containing full pages of the sub frame
+:type nav_data list</p>
+<p>:param key Key from the first mack block.
+:type key BitArray</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.mac_seq_verification">
+<code class="sig-name descname">mac_seq_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mack_block</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac_seq_verification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify mac seq field of the first mac entry on the first mack block.</p>
+<p>:param mack_block List with mac entries as BitArray
+:type mack_block list</p>
+<p>:param key Key of the first mack_block.
+:type BitArray</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.mac_verification">
+<code class="sig-name descname">mac_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">counter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac_verification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not implemented yed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.mack_verification">
+<code class="sig-name descname">mack_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tesla_keys</span></em>, <em class="sig-param"><span class="n">mack_subframe</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">gst_wn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gst_tow</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mack_verification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates a full MACK message with the correspondant keys. Allows the authentication of
+past MACK messages with the parameters gst_wn and gst_tow. Note: Current version does not support
+cross-authentication.</p>
+<p>:param tesla_keys List with the tesla keys for the MACK message in the same order as macs.
+:type list</p>
+<p>:param mack_subframe Raw MACK message to be authenticated in BitArray format.
+:type mack_subframe BitArray</p>
+<p>:param nav_data Navigation data of current satellite. Sorted in a list of 15 entries (one for each page)
+in BitArray format.
+:type nav_data list</p>
+<p>:param gst_wn Galileo Satellite Time Week Number to overwrite the current one only for this MACK.
+:type gst_wn BitArray</p>
+<p>:param gst_tow Galileo Satellite Time Time of Week to overwrite the current one only for this MACK.
+:type gst_tow BitArray</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.pkr_verification">
+<code class="sig-name descname">pkr_verification</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.pkr_verification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Craft and authenticates the new public key message with the saved merkle root</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.set_merkle_root">
+<code class="sig-name descname">set_merkle_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">merkle_root</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.set_merkle_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the value of the Merkle Tree root node.</p>
+<p>:param merkle_root The hash correspondant to the root node of the Merkle Tree
+:type merkle_root BitArray</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.tesla_key_verification">
+<code class="sig-name descname">tesla_key_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">gst_wn</span></em>, <em class="sig-param"><span class="n">gst_tow</span></em>, <em class="sig-param"><span class="n">position</span></em>, <em class="sig-param"><span class="n">svid</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.tesla_key_verification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates a TESLA key with the gst_wn and gst_tow from when it has been received.
+It also needs the position of the key in the mack block. The rest of the necessary data must
+be uploaded to the object before</p>
+<p>:param key TESLA key to be authenticated
+:type key BitArray</p>
+<p>:param gst_wn Galileo Satellite Time Week Number of the TESLA key
+:type gst_wn BitArray</p>
+<p>:param gst_wn Galileo Satellite Time Time of Week of the TESLA key
+:type gst_wn BitArray</p>
+<p>:param position Position of the TESLA key inside the MACK keys
+:type position int</p>
+<p>:param svid Override the current svid
+:param svid int</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">osnma_core</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OSNMACore Class</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to osnma_core’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Aleix Galan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/OSNMACore.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

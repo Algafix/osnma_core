@@ -1,0 +1,5 @@
+osnma_core Exceptions
+===============
+
+.. autoclass:: auxiliar_data/exceptions
+    :members:
