@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="osnma_core",
-    version="0.0.2",
+    version="0.0.3",
     author="Aleix Galan",
     author_email="algafi@protonmail.com",
     description="Implementation of OSNMA protocol functions and data",
