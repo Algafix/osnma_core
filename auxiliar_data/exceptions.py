@@ -1,4 +1,5 @@
-
+"""Custom exceptions for the osnma_core package
+"""
 class MissingFieldData(Exception):
     """Custom exception to be called when a field needed to perfom
     an operation has no data.

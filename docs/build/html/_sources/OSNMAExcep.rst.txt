@@ -1,0 +1,5 @@
+osnma_core Exceptions
+=====================
+
+.. automodule:: auxiliar_data/exceptions.py
+    :members:
