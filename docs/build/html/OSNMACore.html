@@ -125,7 +125,7 @@ certain fields that modify the size of other fields or the use of certain funcio
 <dl class="py method">
 <dt id="osnma_core.OSNMACore.mac0_verification">
 <code class="sig-name descname">mac0_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac0_verification" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the mac0 verification from it’s entry in the first mack block,
+<dd><p>Compute the mac0 verification from it’s entry in the first mack block, 
 the navigation data of the subframe and it’s correspondant key.</p>
 <p>:param mac_entry First MAC entry from the first mack block.
 :type mac_entry BitArray</p>
@@ -180,8 +180,11 @@ in BitArray format.
 <dt id="osnma_core.OSNMACore.set_merkle_root">
 <code class="sig-name descname">set_merkle_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">merkle_root</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.set_merkle_root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the value of the Merkle Tree root node.</p>
-<p>:param merkle_root The hash correspondant to the root node of the Merkle Tree
-:type merkle_root BitArray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>merkle_root</strong> (<em>BitArray</em>) – The hash correspondant to the root node of the Merkle Tree</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

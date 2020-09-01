@@ -38,8 +38,8 @@ class OSNMACore:
     def __convert_to_BitArray(self, data):
         """Tries to convert the input data to a BitArray object and raises TypeError exception if can't.
 
-        :param data Data to be converted
-        :type data BitArray; Bytes; formated String for bin, hex or oct.
+        :param data: Data to be converted
+        :type data: BitArray; Bytes; formated String for bin, hex or oct.
         """
         try:
             if not isinstance(data, bs.BitArray):
@@ -146,8 +146,8 @@ class OSNMACore:
     def set_merkle_root(self, merkle_root):
         """Change the value of the Merkle Tree root node.
 
-        :param merkle_root The hash correspondant to the root node of the Merkle Tree
-        :type merkle_root BitArray
+        :param merkle_root: The hash correspondant to the root node of the Merkle Tree
+        :type merkle_root: BitArray
         """
         self.__merkle_root = merkle_root
 
