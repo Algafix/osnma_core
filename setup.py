@@ -5,14 +5,15 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="osnma_core",
-    version="0.0.5",
+    version="0.0.10",
     author="Aleix Galan",
     author_email="algafi@protonmail.com",
     description="Implementation of OSNMA protocol functions and data",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Algafix/osnma_core",
-    packages=setuptools.find_packages(),
+    py_modules=['osnma_core'],
+    packages=['auxiliar_data'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

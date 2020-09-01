@@ -1,5 +1,10 @@
 README.md
+osnma_core.py
 setup.py
+auxiliar_data/exceptions.py
+auxiliar_data/osnma_fields.py
+auxiliar_data/osnma_structures.py
+auxiliar_data/test_data.py
 osnma_core.egg-info/PKG-INFO
 osnma_core.egg-info/SOURCES.txt
 osnma_core.egg-info/dependency_links.txt
