@@ -48,23 +48,39 @@ them by itself.</p>
 <dd><p>Process the message from the OSNMA DMS-KROOT. Reads and disfragment the fields from the
 dms_kroot message and then proceeds with the KROOT verification calling self.kroot_verification().
 Allows to load custom NMA Header, DS length and pubk path in case they are not already saved in the object.</p>
-<p>:param dms_kroot Bits from the DMS-KROOT OSNMA message.
-:type dms_kroot BitArray; formated String for bin, oct or hex</p>
-<p>:param pubk_path Path to the public key that will be used
-:type pubk_path String</p>
-<p>:param nma_header NMA Header to be used in the verification
-:type nma_header BitArray; formated String for bin, oct or hex</p>
-<p>:param ds_length Length of the DS field in DMS-KROOT message
-:type ds_length int</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dms_kroot</strong> (<em>BitArray; formated String for bin</em><em>, </em><em>oct</em><em> or </em><em>hex</em>) – Bits from the DMS-KROOT OSNMA message.</p></li>
+<li><p><strong>pubk_path</strong> (<em>String</em>) – Path to the public key that will be used</p></li>
+<li><p><strong>nma_header</strong> (<em>BitArray; formated String for bin</em><em>, </em><em>oct</em><em> or </em><em>hex</em>) – NMA Header to be used in the verification</p></li>
+<li><p><strong>ds_length</strong> (<em>int</em>) – Length of the DS field in DMS-KROOT message</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the verification of the KROOT is positive, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="osnma_core.OSNMACore.dms_pkr_process">
 <code class="sig-name descname">dms_pkr_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms_pkr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.dms_pkr_process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fragment the dms_pkr message in its fields and autenticates the new pkr key calling to
-self.pkr_verification</p>
-<p>:param dms_pkr Raw DMS-PRK message
-:type dms_pkr BitArray; formated String for bin, oct or hex</p>
+<dd><p>Fragment the dms_pkr message in its fields and autenticates the new pkr key calling to self.pkr_verification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dms_pkr</strong> (<em>BitArray; formated String for bin</em><em>, </em><em>oct</em><em> or </em><em>hex</em>) – Raw DMS-PRK message</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the verification of the Public Key is positive, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -72,18 +88,176 @@ self.pkr_verification</p>
 <code class="sig-name descname">filter_nav_data_by_adkd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">adkd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.filter_nav_data_by_adkd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filters nav_data depending on the adkd parameter. Return all the nav_data to
 verifiy concatenated.</p>
-<p>:param nav_data List with 15 BitArray objects containing full pages of the sub frame
-:type nav_data list</p>
-<p>:param adkd Authentication Data and Key Delay that indicates the data to authenticate
-:type int</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nav_data</strong> (<em>list</em>) – List with 15 BitArray objects containing full pages of the sub frame</p></li>
+<li><p><strong>adkd</strong> (<em>int</em>) – Authentication Data and Key Delay that indicates the data to authenticate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Concatenated navigation data to be authenticated.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>BitArray</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="osnma_core.OSNMACore.format_mack_data">
 <code class="sig-name descname">format_mack_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_mack_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.format_mack_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of list with the mack blocks and each entry.</p>
-<p>:param raw_mack_data Subframe mack data with keys
-:type BitArray</p>
+<dd><p>Returns a list of lists with the mack blocks being the outer list and each entry
+in the mack block an entry in the inner list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>raw_mack_data</strong> (<em>BitArray</em>) – Subframe mack data with keys</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of mack blocks with every mack block being a list of mac entries.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the data of the Field correspondant to the field_name parameter in the desired format.
+Possible formats: uint, bytes. If no format is specified a BitArray object will be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field_name</strong> (<em>string</em>) – Name of the field.</p></li>
+<li><p><strong>format</strong> (<em>string</em>) – Format for the data (None, ‘uint’ or ‘bytes’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data contained in the Field object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_description">
+<code class="sig-name descname">get_description</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the field description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field_name</strong> (<em>string</em>) – Name of the field.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description of the Field object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_field">
+<code class="sig-name descname">get_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Field object related to the name received as parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field_name</strong> – Name of the field to be retrieved.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>string</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Field object that corresponds to the field_name.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Field</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_key_table">
+<code class="sig-name descname">get_key_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_key_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get key table dictionary with the current verified TESLA keys from the keychain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>TESLA verified keys dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_meaning">
+<code class="sig-name descname">get_meaning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_meaning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the meaning of the Field checked with its current value. The value of the
+Field is returned if there is no meaning function associated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field_name</strong> (<em>string</em>) – Name of the field.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The meaning of the field or its value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_merkle_root">
+<code class="sig-name descname">get_merkle_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_merkle_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Merkle root value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Merkle root value.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>BitArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_repr">
+<code class="sig-name descname">get_repr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the default way of representing the Field received as parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field_name</strong> (<em>string</em>) – Name of the field.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Printable object with the default way of representing the object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="osnma_core.OSNMACore.get_size">
+<code class="sig-name descname">get_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the size in bits of the Field correspondant to the field_name parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field_name</strong> (<em>string</em>) – Name of the field.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Size of the field in bits.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -91,10 +265,20 @@ verifiy concatenated.</p>
 <code class="sig-name descname">kroot_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pub_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hash_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.kroot_verification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Authenticates the saved KROOT with the current Public Key or the path for the one
 passed as parameter.</p>
-<p>:param pub_key Path to the pem file with the pub_key used for the authentication
-:type pub_key String</p>
-<p>:param hash_name OpenSSL hash name to override the loaded one
-:type hash_name String</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pub_key</strong> (<em>String</em>) – Path to the pem file with the pub_key used for the authentication</p></li>
+<li><p><strong>hash_name</strong> (<em>String</em>) – OpenSSL hash name to override the loaded one</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The result of the verification of KROOT</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -102,24 +286,41 @@ passed as parameter.</p>
 <code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load data to the OSNMa Field indicated. Also triggers secondary actions related to
 certain fields that modify the size of other fields or the use of certain funcions.</p>
-<p>:param field_name Name of the OSNMA Field
-:type field_name String</p>
-<p>:param data Data of the field
-:type data BitArray; formated String for bin, oct or hex</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field_name</strong> (<em>String</em>) – Name of the OSNMA Field</p></li>
+<li><p><strong>data</strong> (<em>BitArray; formated String for bin</em><em>, </em><em>oct</em><em> or </em><em>hex</em>) – Data of the field</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="osnma_core.OSNMACore.load_batch">
 <code class="sig-name descname">load_batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a dictionary with OSNMA Fields to the object.</p>
-<p>:param data_dict Dictionary with key = field_name and data the data for the field
-:type dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_dict</strong> (<em>dict</em>) – Dictionary with key = field_name and data the data for the field</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="osnma_core.OSNMACore.load_floating_key">
 <code class="sig-name descname">load_floating_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">gst_WN</span></em>, <em class="sig-param"><span class="n">gst_TOW</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load_floating_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a floating key of the chain to speed up chain authentication</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – TESLA key index in the current chain.</p></li>
+<li><p><strong>gst_WN</strong> (<em>BitArray</em>) – GST Week Number where the key was transmited.</p></li>
+<li><p><strong>gst_TOW</strong> (<em>BitArray</em>) – GST Time of the Week where the key was transmited.</p></li>
+<li><p><strong>key</strong> (<em>BitArray</em>) – TESLA key</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -127,22 +328,41 @@ certain fields that modify the size of other fields or the use of certain funcio
 <code class="sig-name descname">mac0_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac0_verification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the mac0 verification from it’s entry in the first mack block, 
 the navigation data of the subframe and it’s correspondant key.</p>
-<p>:param mac_entry First MAC entry from the first mack block.
-:type mac_entry BitArray</p>
-<p>:param nav_data List with 15 BitArray objects containing full pages of the sub frame
-:type nav_data list</p>
-<p>:param key Key from the first mack block.
-:type key BitArray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mac_entry</strong> (<em>BitArray</em>) – First MAC entry from the first mack block.</p></li>
+<li><p><strong>nav_data</strong> (<em>list</em>) – List with 15 BitArray objects containing full pages of the sub frame</p></li>
+<li><p><strong>key</strong> (<em>BitArray</em>) – Key from the first mack block.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple with (bool, computed mac0 tag, received mac0 tag).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="osnma_core.OSNMACore.mac_seq_verification">
 <code class="sig-name descname">mac_seq_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mack_block</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac_seq_verification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verify mac seq field of the first mac entry on the first mack block.</p>
-<p>:param mack_block List with mac entries as BitArray
-:type mack_block list</p>
-<p>:param key Key of the first mack_block.
-:type BitArray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mack_block</strong> (<em>list</em>) – List with mac entries as BitArray</p></li>
+<li><p><strong>key</strong> (<em>BitArray</em>) – Key of the first mack_block.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple with (bool, computed seq tag, received seq tag).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -157,23 +377,37 @@ the navigation data of the subframe and it’s correspondant key.</p>
 <dd><p>Authenticates a full MACK message with the correspondant keys. Allows the authentication of
 past MACK messages with the parameters gst_wn and gst_tow. Note: Current version does not support
 cross-authentication.</p>
-<p>:param tesla_keys List with the tesla keys for the MACK message in the same order as macs.
-:type list</p>
-<p>:param mack_subframe Raw MACK message to be authenticated in BitArray format.
-:type mack_subframe BitArray</p>
-<p>:param nav_data Navigation data of current satellite. Sorted in a list of 15 entries (one for each page)
-in BitArray format.
-:type nav_data list</p>
-<p>:param gst_wn Galileo Satellite Time Week Number to overwrite the current one only for this MACK.
-:type gst_wn BitArray</p>
-<p>:param gst_tow Galileo Satellite Time Time of Week to overwrite the current one only for this MACK.
-:type gst_tow BitArray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tesla_keys</strong> (<em>list</em>) – List with the tesla keys for the MACK message in the same order as macs.</p></li>
+<li><p><strong>mack_subframe</strong> (<em>BitArray</em>) – Raw MACK message to be authenticated in BitArray format.</p></li>
+<li><p><strong>nav_data</strong> (<em>list</em>) – Navigation data of current satellite. Sorted in a list of 15 entries (one for each page) in BitArray format.</p></li>
+<li><p><strong>gst_wn</strong> (<em>BitArray</em>) – Galileo Satellite Time Week Number to overwrite the current one only for this MACK.</p></li>
+<li><p><strong>gst_tow</strong> (<em>BitArray</em>) – Galileo Satellite Time Time of Week to overwrite the current one only for this MACK.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary with the keys ‘mac0’ and ‘seq’ and the values as a tuple (bool, computed_mac, received_mac)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="osnma_core.OSNMACore.pkr_verification">
 <code class="sig-name descname">pkr_verification</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.pkr_verification" title="Permalink to this definition">¶</a></dt>
-<dd><p>Craft and authenticates the new public key message with the saved merkle root</p>
+<dd><p>Craft and authenticates the new public key message with the saved merkle root.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the computed Merkle root is the same that the one saved.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -188,21 +422,43 @@ in BitArray format.
 </dd></dl>
 
 <dl class="py method">
+<dt id="osnma_core.OSNMACore.set_size">
+<code class="sig-name descname">set_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.set_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the size of the field with the field_name received as parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field_name</strong> (<em>string</em>) – Name of the field.</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – New size of the field.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="osnma_core.OSNMACore.tesla_key_verification">
 <code class="sig-name descname">tesla_key_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">gst_wn</span></em>, <em class="sig-param"><span class="n">gst_tow</span></em>, <em class="sig-param"><span class="n">position</span></em>, <em class="sig-param"><span class="n">svid</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.tesla_key_verification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Authenticates a TESLA key with the gst_wn and gst_tow from when it has been received.
 It also needs the position of the key in the mack block. The rest of the necessary data must
 be uploaded to the object before</p>
-<p>:param key TESLA key to be authenticated
-:type key BitArray</p>
-<p>:param gst_wn Galileo Satellite Time Week Number of the TESLA key
-:type gst_wn BitArray</p>
-<p>:param gst_wn Galileo Satellite Time Time of Week of the TESLA key
-:type gst_wn BitArray</p>
-<p>:param position Position of the TESLA key inside the MACK keys
-:type position int</p>
-<p>:param svid Override the current svid
-:param svid int</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>BitArray</em>) – TESLA key to be authenticated</p></li>
+<li><p><strong>gst_wn</strong> (<em>BitArray</em>) – Galileo Satellite Time Week Number of the TESLA key</p></li>
+<li><p><strong>gst_wn</strong> – Galileo Satellite Time Time of Week of the TESLA key</p></li>
+<li><p><strong>position</strong> (<em>int</em>) – Position of the TESLA key inside the MACK keys</p></li>
+<li><p><strong>svid</strong> – Override the current svid</p></li>
+<li><p><strong>svid</strong> – int</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple with a bool that indicates if the key has been verified and its key index</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

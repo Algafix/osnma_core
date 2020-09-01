@@ -5,6 +5,7 @@ import math
 import hmac
 import hashlib
 import ecdsa
+import Crypto
 import bitstring as bs
 import auxiliar_data.osnma_fields as osnma_fields
 import auxiliar_data.osnma_structures as osnma_structures
@@ -38,8 +39,8 @@ class OSNMACore:
     def __convert_to_BitArray(self, data):
         """Tries to convert the input data to a BitArray object and raises TypeError exception if can't.
 
-        :param data: Data to be converted
-        :type data: BitArray; Bytes; formated String for bin, hex or oct.
+        :param data Data to be converted
+        :type data BitArray; Bytes; formated String for bin, hex or oct.
         """
         try:
             if not isinstance(data, bs.BitArray):
@@ -59,7 +60,7 @@ class OSNMACore:
         
         return math.floor(((480/nmack) - ks)//(ms + 16))
 
-    def get_key_index(self, gst, position, svid=None, ns=None, nmack=None, gst_0=None):
+    def __get_key_index(self, gst, position, svid=None, ns=None, nmack=None, gst_0=None):
         if not svid:
             svid = self.svid
         if not ns:
@@ -101,6 +102,18 @@ class OSNMACore:
         return gst_subfragment
 
     def get_data(self, field_name, format=None):
+        """Get the data of the Field correspondant to the field_name parameter in the desired format.
+        Possible formats: uint, bytes. If no format is specified a BitArray object will be returned.
+
+        :param field_name: Name of the field.
+        :type field_name: string
+
+        :param format: Format for the data (None, 'uint' or 'bytes').
+        :type format: string
+
+        :returns: Data contained in the Field object
+        :rtype: Object
+        """
         field = self.OSNMA_data[field_name]
         if field.get_data() == None:
             return None
@@ -114,33 +127,94 @@ class OSNMACore:
             raise TypeError('Format not accepted (None, uint, bytes)')
     
     def get_size(self, field_name):
+        """Get the size in bits of the Field correspondant to the field_name parameter.
+
+        :param field_name: Name of the field.
+        :type field_name: string
+
+        :returns: Size of the field in bits.
+        :rtype: int
+        """
         try:
             return self.OSNMA_data[field_name].get_size()
         except KeyError:
             raise KeyError('Key '+str(field_name+' does not exist.'))
 
     def set_size(self, field_name, size):
+        """Modify the size of the field with the field_name received as parameter.
+
+        :param field_name: Name of the field.
+        :type field_name: string
+        
+        :param size: New size of the field.
+        :type size: int
+        """
         try:
             self.OSNMA_data[field_name].set_size(size)
         except KeyError:
             raise KeyError('Key '+str(field_name+' does not exist.'))
 
     def get_key_table(self):
+        """Get key table dictionary with the current verified TESLA keys from the keychain.
+
+        :returns: TESLA verified keys dictionary.
+        :rtype: dict
+        """
+
         return self.__key_table
 
     def get_meaning(self, field_name):
+        """Get the meaning of the Field checked with its current value. The value of the
+        Field is returned if there is no meaning function associated.
+
+        :param field_name: Name of the field.
+        :type field_name: string
+
+        :returns: The meaning of the field or its value.
+        :rtype: Object
+        """
         return self.OSNMA_data[field_name].get_meaning()
 
     def get_description(self, field_name):
+        """Get the field description.
+
+        :param field_name: Name of the field.
+        :type field_name: string
+
+        :returns: Description of the Field object.
+        :rtype: string
+        """
         return self.OSNMA_data[field_name].get_description()
 
     def get_repr(self, field_name):
+        """Get the default way of representing the Field received as parameter.
+
+        :param field_name: Name of the field.
+        :type field_name: string
+
+        :returns: Printable object with the default way of representing the object.
+        :rtype: string
+
+        """
         return self.OSNMA_data[field_name].get_repr()
 
     def get_field(self, field_name):
+        """Returns the Field object related to the name received as parameter.
+        
+        :param field_name: Name of the field to be retrieved.
+        :type: string
+
+        :returns: Field object that corresponds to the field_name.
+        :rtype: Field
+        """
         return self.OSNMA_data[field_name]
 
     def get_merkle_root(self):
+        """Returns the Merkle root value.
+
+        :returns: Merkle root value.
+        :rtype: BitArray
+        """
         return self.__merkle_root
 
     def set_merkle_root(self, merkle_root):
@@ -153,6 +227,18 @@ class OSNMACore:
 
     def load_floating_key(self, index, gst_WN, gst_TOW, key):
         """Loads a floating key of the chain to speed up chain authentication
+
+        :param index: TESLA key index in the current chain.
+        :type index: int
+
+        :param gst_WN: GST Week Number where the key was transmited.
+        :type gst_WN: BitArray
+
+        :param gst_TOW: GST Time of the Week where the key was transmited.
+        :type gst_TOW: BitArray
+
+        :param key: TESLA key
+        :type key: BitArray
         """
         self.__key_table[index] = osnma_structures.KeyEntry(index, gst_WN, gst_TOW, key)
 
@@ -160,11 +246,11 @@ class OSNMACore:
         """Load data to the OSNMa Field indicated. Also triggers secondary actions related to
         certain fields that modify the size of other fields or the use of certain funcions.
 
-        :param field_name Name of the OSNMA Field
-        :type field_name String
+        :param field_name: Name of the OSNMA Field
+        :type field_name: String
 
-        :param data Data of the field
-        :type data BitArray; formated String for bin, oct or hex
+        :param data: Data of the field
+        :type data: BitArray; formated String for bin, oct or hex
         """
 
         
@@ -195,8 +281,8 @@ class OSNMACore:
     def load_batch(self, data_dict):
         """Load a dictionary with OSNMA Fields to the object.
 
-        :param data_dict Dictionary with key = field_name and data the data for the field
-        :type dict
+        :param data_dict: Dictionary with key = field_name and data the data for the field
+        :type data_dict: dict
         """
         if not isinstance(data_dict, dict):
             raise TypeError('Expecting a dict class, not '+str(type(data_dict)))
@@ -208,11 +294,14 @@ class OSNMACore:
         """Authenticates the saved KROOT with the current Public Key or the path for the one
         passed as parameter.
 
-        :param pub_key Path to the pem file with the pub_key used for the authentication
-        :type pub_key String
+        :param pub_key: Path to the pem file with the pub_key used for the authentication
+        :type pub_key: String
 
-        :param hash_name OpenSSL hash name to override the loaded one
-        :type hash_name String
+        :param hash_name: OpenSSL hash name to override the loaded one
+        :type hash_name: String
+
+        :returns: The result of the verification of KROOT
+        :rtype: bool
         """
 
         # Create the kroot signature message
@@ -252,20 +341,23 @@ class OSNMACore:
         It also needs the position of the key in the mack block. The rest of the necessary data must
         be uploaded to the object before
 
-        :param key TESLA key to be authenticated
-        :type key BitArray
+        :param key: TESLA key to be authenticated
+        :type key: BitArray
 
-        :param gst_wn Galileo Satellite Time Week Number of the TESLA key
-        :type gst_wn BitArray
+        :param gst_wn: Galileo Satellite Time Week Number of the TESLA key
+        :type gst_wn: BitArray
 
-        :param gst_wn Galileo Satellite Time Time of Week of the TESLA key
-        :type gst_wn BitArray
+        :param gst_wn: Galileo Satellite Time Time of Week of the TESLA key
+        :type gst_wn: BitArray
 
-        :param position Position of the TESLA key inside the MACK keys
-        :type position int
+        :param position: Position of the TESLA key inside the MACK keys
+        :type position: int
 
-        :param svid Override the current svid
-        :param svid int
+        :param svid: Override the current svid
+        :param svid: int
+
+        :returns: Tuple with a bool that indicates if the key has been verified and its key index
+        :rtype: tuple
 
         """
 
@@ -275,7 +367,7 @@ class OSNMACore:
         alpha = self.OSNMA_data['alpha'].get_data()
         key_size = self.OSNMA_data['KS'].get_meaning()
         gst = gst_wn + gst_tow
-        key_index = self.get_key_index(gst, position, svid)
+        key_index = self.__get_key_index(gst, position, svid)
         new_keys_dict = {}
 
         new_keys_dict[key_index] = osnma_structures.KeyEntry(key_index, gst_wn, gst_tow, key)
@@ -302,11 +394,14 @@ class OSNMACore:
         """Filters nav_data depending on the adkd parameter. Return all the nav_data to
         verifiy concatenated.
 
-        :param nav_data List with 15 BitArray objects containing full pages of the sub frame
-        :type nav_data list
+        :param nav_data: List with 15 BitArray objects containing full pages of the sub frame
+        :type nav_data: list
 
-        :param adkd Authentication Data and Key Delay that indicates the data to authenticate
-        :type int
+        :param adkd: Authentication Data and Key Delay that indicates the data to authenticate
+        :type adkd: int
+
+        :returns: Concatenated navigation data to be authenticated.
+        :rtype: BitArray
         """
         filtered_nav_data = bs.BitArray()
         data_masks = osnma_structures.adkd_masks[adkd]
@@ -319,10 +414,14 @@ class OSNMACore:
         return filtered_nav_data
 
     def format_mack_data(self, raw_mack_data):
-        """Returns a list of list with the mack blocks and each entry.
+        """Returns a list of lists with the mack blocks being the outer list and each entry
+        in the mack block an entry in the inner list.
 
-        :param raw_mack_data Subframe mack data with keys
-        :type BitArray
+        :param raw_mack_data: Subframe mack data with keys
+        :type raw_mack_data: BitArray
+
+        :returns: List of mack blocks with every mack block being a list of mac entries.
+        :rtype: list
         """
 
         mack_block_len = self.get_meaning('NMACK')
@@ -345,11 +444,14 @@ class OSNMACore:
     def mac_seq_verification(self, mack_block, key):
         """Verify mac seq field of the first mac entry on the first mack block.
         
-        :param mack_block List with mac entries as BitArray
-        :type mack_block list
+        :param mack_block: List with mac entries as BitArray
+        :type mack_block: list
 
-        :param key Key of the first mack_block.
-        :type BitArray
+        :param key: Key of the first mack_block.
+        :type key: BitArray
+
+        :returns: Tuple with (bool, computed seq tag, received seq tag).
+        :rtype: tuple
         """
 
         # Construct the message to be authenticated
@@ -377,14 +479,17 @@ class OSNMACore:
         """Compute the mac0 verification from it's entry in the first mack block, 
         the navigation data of the subframe and it's correspondant key.
 
-        :param mac_entry First MAC entry from the first mack block.
-        :type mac_entry BitArray
+        :param mac_entry: First MAC entry from the first mack block.
+        :type mac_entry: BitArray
 
-        :param nav_data List with 15 BitArray objects containing full pages of the sub frame
-        :type nav_data list
+        :param nav_data: List with 15 BitArray objects containing full pages of the sub frame
+        :type nav_data: list
 
-        :param key Key from the first mack block.
-        :type key BitArray
+        :param key: Key from the first mack block.
+        :type key: BitArray
+
+        :returns: Tuple with (bool, computed mac0 tag, received mac0 tag).
+        :rtype: tuple
         """
         
         filtered_nav_data = self.filter_nav_data_by_adkd(nav_data, 0)
@@ -408,7 +513,8 @@ class OSNMACore:
             hmac_mac0 = hmac.new(key=key.bytes, msg=authenticated_msg, digestmod=hashlib.sha256)
             computed_tag0 = bs.BitArray(hmac_mac0.digest())[:mac_size]
         elif self.__MF == 'CMAC-AES':
-            raise TypeError('CMAC-AES not implemented')
+            cmac_ma0 = Crypto.Hash.CMAC.new(key.bytes, authenticated_msg, Crypto.Cipher.AES)
+            computed_tag0 = bs.BitArray(cmac_ma0.digest())[:mac_size]
         else:
             raise TypeError('MAC function rsvd or None ' + str(self.__HF))
         
@@ -424,21 +530,24 @@ class OSNMACore:
         past MACK messages with the parameters gst_wn and gst_tow. Note: Current version does not support
         cross-authentication.
 
-        :param tesla_keys List with the tesla keys for the MACK message in the same order as macs.
-        :type list
+        :param tesla_keys: List with the tesla keys for the MACK message in the same order as macs.
+        :type tesla_keys: list
 
-        :param mack_subframe Raw MACK message to be authenticated in BitArray format.
-        :type mack_subframe BitArray
+        :param mack_subframe: Raw MACK message to be authenticated in BitArray format.
+        :type mack_subframe: BitArray
 
-        :param nav_data Navigation data of current satellite. Sorted in a list of 15 entries (one for each page)
-        in BitArray format.
-        :type nav_data list
+        :param nav_data: Navigation data of current satellite. Sorted in a list of 15 entries (one for each page) in BitArray format.
+        :type nav_data: list
 
-        :param gst_wn Galileo Satellite Time Week Number to overwrite the current one only for this MACK.
-        :type gst_wn BitArray
+        :param gst_wn: Galileo Satellite Time Week Number to overwrite the current one only for this MACK.
+        :type gst_wn: BitArray
 
-        :param gst_tow Galileo Satellite Time Time of Week to overwrite the current one only for this MACK.
-        :type gst_tow BitArray
+        :param gst_tow: Galileo Satellite Time Time of Week to overwrite the current one only for this MACK.
+        :type gst_tow: BitArray
+
+        :returns: A dictionary with the keys 'mac0' and 'seq' and the values as a tuple (bool, computed_mac, received_mac)
+        :rtype: dict
+
         """
 
         if gst_wn and gst_tow:
@@ -465,12 +574,15 @@ class OSNMACore:
         return mack_result_dict
 
     def pkr_verification(self):
-        """Craft and authenticates the new public key message with the saved merkle root
+        """Craft and authenticates the new public key message with the saved merkle root.
+
+        :returns: True if the computed Merkle root is the same that the one saved.
+        :rtype: bool
         """
 
         if self.__merkle_root == None:
             raise AttributeError("Missing Merkle root")
-
+        
         # Create the pkr signature message
         message = bs.BitArray()
         for field in self.OSNMA_crypto['pkr_m']:
@@ -496,12 +608,13 @@ class OSNMACore:
         return node == self.__merkle_root
 
     def dms_pkr_process(self, dms_pkr):
-        """Fragment the dms_pkr message in its fields and autenticates the new pkr key calling to
-        self.pkr_verification
+        """Fragment the dms_pkr message in its fields and autenticates the new pkr key calling to self.pkr_verification
 
-        :param dms_pkr Raw DMS-PRK message
-        :type dms_pkr BitArray; formated String for bin, oct or hex
+        :param dms_pkr: Raw DMS-PRK message
+        :type dms_pkr: BitArray; formated String for bin, oct or hex
 
+        :returns: True if the verification of the Public Key is positive, False otherwise.
+        :rtype: bool
         """
 
         # Formats the data
@@ -523,17 +636,20 @@ class OSNMACore:
         dms_kroot message and then proceeds with the KROOT verification calling self.kroot_verification().
         Allows to load custom NMA Header, DS length and pubk path in case they are not already saved in the object.
 
-        :param dms_kroot Bits from the DMS-KROOT OSNMA message.
-        :type dms_kroot BitArray; formated String for bin, oct or hex
+        :param dms_kroot: Bits from the DMS-KROOT OSNMA message.
+        :type dms_kroot: BitArray; formated String for bin, oct or hex
 
-        :param pubk_path Path to the public key that will be used
-        :type pubk_path String
+        :param pubk_path: Path to the public key that will be used
+        :type pubk_path: String
 
-        :param nma_header NMA Header to be used in the verification
-        :type nma_header BitArray; formated String for bin, oct or hex
+        :param nma_header: NMA Header to be used in the verification
+        :type nma_header: BitArray; formated String for bin, oct or hex
 
-        :param ds_length Length of the DS field in DMS-KROOT message
-        :type ds_length int
+        :param ds_length: Length of the DS field in DMS-KROOT message
+        :type ds_length: int
+
+        :returns: True if the verification of the KROOT is positive, False otherwise.
+        :rtype: bool
         """
 
         # Sets new data
