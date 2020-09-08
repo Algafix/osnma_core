@@ -1,5 +1,5 @@
 
-Documentation for osnma_core packet
+Documentation for osnma_core package
 ======================================
 
 
