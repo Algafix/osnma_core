@@ -10,3 +10,6 @@ osnma_core.egg-info/SOURCES.txt
 osnma_core.egg-info/dependency_links.txt
 osnma_core.egg-info/requires.txt
 osnma_core.egg-info/top_level.txt
+tests/kroot_verification.py
+tests/pkr_verification.py
+tests/tesla_verification.py

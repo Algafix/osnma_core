@@ -22,7 +22,7 @@ copyright = '2020, Aleix Galan'
 author = 'Aleix Galan'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '0.0.11'
 
 
 # -- General configuration ---------------------------------------------------

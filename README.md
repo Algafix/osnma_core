@@ -30,7 +30,7 @@ Install osnma_core by running:
 
 Contribute
 ----------
-
+- Documentation: https://osnma-core.readthedocs.io
 - Source Code: https://github.com/Algafix/osnma_core
 - PyPI: https://pypi.org/project/osnma-core/
 

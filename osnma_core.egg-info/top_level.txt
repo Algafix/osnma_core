@@ -1,2 +1,3 @@
 auxiliar_data
 osnma_core
+tests

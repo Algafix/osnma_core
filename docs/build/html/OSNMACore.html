@@ -15,7 +15,6 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to osnma_core’s documentation!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -32,19 +31,19 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-osnma_core">
-<span id="osnmacore-class"></span><h1>OSNMACore Class<a class="headerlink" href="#module-osnma_core" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="osnmacore-class">
+<h1>OSNMACore Class<a class="headerlink" href="#osnmacore-class" title="Permalink to this headline">¶</a></h1>
 <p>Module that implements the basic OSNMA actions</p>
 <dl class="py class">
-<dt id="osnma_core.OSNMACore">
-<em class="property">class </em><code class="sig-prename descclassname">osnma_core.</code><code class="sig-name descname">OSNMACore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svid</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">pubk_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">osnma_core.</code><code class="sig-name descname">OSNMACore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">svid</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">pubk_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Class that handle all the atributes and methods related to the OSNMA protocol. It stores data fields, process
 messages and perform verification of the different OSNMA structures. It also provides information about the internal
 stucture of the OSNMA message and auxiliat data such as bitmasks and tables in case the receiver wants to implement
 them by itself.</p>
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.dms_kroot_process">
-<code class="sig-name descname">dms_kroot_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms_kroot</span></em>, <em class="sig-param"><span class="n">pubk_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nma_header</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ds_length</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.dms_kroot_process" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">dms_kroot_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms_kroot</span></em>, <em class="sig-param"><span class="n">pubk_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nma_header</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ds_length</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Process the message from the OSNMA DMS-KROOT. Reads and disfragment the fields from the
 dms_kroot message and then proceeds with the KROOT verification calling self.kroot_verification().
 Allows to load custom NMA Header, DS length and pubk path in case they are not already saved in the object.</p>
@@ -67,8 +66,8 @@ Allows to load custom NMA Header, DS length and pubk path in case they are not a
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.dms_pkr_process">
-<code class="sig-name descname">dms_pkr_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms_pkr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.dms_pkr_process" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">dms_pkr_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dms_pkr</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Fragment the dms_pkr message in its fields and autenticates the new pkr key calling to self.pkr_verification</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -84,8 +83,8 @@ Allows to load custom NMA Header, DS length and pubk path in case they are not a
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.filter_nav_data_by_adkd">
-<code class="sig-name descname">filter_nav_data_by_adkd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">adkd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.filter_nav_data_by_adkd" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">filter_nav_data_by_adkd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">adkd</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Filters nav_data depending on the adkd parameter. Return all the nav_data to
 verifiy concatenated.</p>
 <dl class="field-list simple">
@@ -105,8 +104,8 @@ verifiy concatenated.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.format_mack_data">
-<code class="sig-name descname">format_mack_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_mack_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.format_mack_data" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">format_mack_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_mack_data</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Returns a list of lists with the mack blocks being the outer list and each entry
 in the mack block an entry in the inner list.</p>
 <dl class="field-list simple">
@@ -123,8 +122,8 @@ in the mack block an entry in the inner list.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_data">
-<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_data" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Get the data of the Field correspondant to the field_name parameter in the desired format.
 Possible formats: uint, bytes. If no format is specified a BitArray object will be returned.</p>
 <dl class="field-list simple">
@@ -144,8 +143,8 @@ Possible formats: uint, bytes. If no format is specified a BitArray object will 
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_description">
-<code class="sig-name descname">get_description</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_description" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_description</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Get the field description.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -161,8 +160,8 @@ Possible formats: uint, bytes. If no format is specified a BitArray object will 
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_field">
-<code class="sig-name descname">get_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_field" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Returns the Field object related to the name received as parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -181,8 +180,8 @@ Possible formats: uint, bytes. If no format is specified a BitArray object will 
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_key_table">
-<code class="sig-name descname">get_key_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_key_table" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_key_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Get key table dictionary with the current verified TESLA keys from the keychain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -195,8 +194,8 @@ Possible formats: uint, bytes. If no format is specified a BitArray object will 
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_meaning">
-<code class="sig-name descname">get_meaning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_meaning" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_meaning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Get the meaning of the Field checked with its current value. The value of the
 Field is returned if there is no meaning function associated.</p>
 <dl class="field-list simple">
@@ -213,8 +212,8 @@ Field is returned if there is no meaning function associated.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_merkle_root">
-<code class="sig-name descname">get_merkle_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_merkle_root" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_merkle_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Returns the Merkle root value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -227,8 +226,8 @@ Field is returned if there is no meaning function associated.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_repr">
-<code class="sig-name descname">get_repr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_repr" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_repr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Get the default way of representing the Field received as parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -244,8 +243,8 @@ Field is returned if there is no meaning function associated.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.get_size">
-<code class="sig-name descname">get_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.get_size" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">get_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Get the size in bits of the Field correspondant to the field_name parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -261,8 +260,8 @@ Field is returned if there is no meaning function associated.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.kroot_verification">
-<code class="sig-name descname">kroot_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pub_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hash_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.kroot_verification" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">kroot_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pub_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hash_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Authenticates the saved KROOT with the current Public Key or the path for the one
 passed as parameter.</p>
 <dl class="field-list simple">
@@ -282,8 +281,8 @@ passed as parameter.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Load data to the OSNMa Field indicated. Also triggers secondary actions related to
 certain fields that modify the size of other fields or the use of certain funcions.</p>
 <dl class="field-list simple">
@@ -297,8 +296,8 @@ certain fields that modify the size of other fields or the use of certain funcio
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.load_batch">
-<code class="sig-name descname">load_batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load_batch" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">load_batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Load a dictionary with OSNMA Fields to the object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -308,8 +307,8 @@ certain fields that modify the size of other fields or the use of certain funcio
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.load_floating_key">
-<code class="sig-name descname">load_floating_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">gst_WN</span></em>, <em class="sig-param"><span class="n">gst_TOW</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.load_floating_key" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">load_floating_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">gst_WN</span></em>, <em class="sig-param"><span class="n">gst_TOW</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Loads a floating key of the chain to speed up chain authentication</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -324,8 +323,8 @@ certain fields that modify the size of other fields or the use of certain funcio
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.mac0_verification">
-<code class="sig-name descname">mac0_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac0_verification" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">mac0_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Compute the mac0 verification from it’s entry in the first mack block, 
 the navigation data of the subframe and it’s correspondant key.</p>
 <dl class="field-list simple">
@@ -346,8 +345,8 @@ the navigation data of the subframe and it’s correspondant key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.mac_seq_verification">
-<code class="sig-name descname">mac_seq_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mack_block</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac_seq_verification" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">mac_seq_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mack_block</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Verify mac seq field of the first mac entry on the first mack block.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -366,14 +365,14 @@ the navigation data of the subframe and it’s correspondant key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.mac_verification">
-<code class="sig-name descname">mac_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">counter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mac_verification" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">mac_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mac_entry</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">counter</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Not implemented yed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.mack_verification">
-<code class="sig-name descname">mack_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tesla_keys</span></em>, <em class="sig-param"><span class="n">mack_subframe</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">gst_wn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gst_tow</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.mack_verification" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">mack_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tesla_keys</span></em>, <em class="sig-param"><span class="n">mack_subframe</span></em>, <em class="sig-param"><span class="n">nav_data</span></em>, <em class="sig-param"><span class="n">gst_wn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gst_tow</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Authenticates a full MACK message with the correspondant keys. Allows the authentication of
 past MACK messages with the parameters gst_wn and gst_tow. Note: Current version does not support
 cross-authentication.</p>
@@ -397,8 +396,8 @@ cross-authentication.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.pkr_verification">
-<code class="sig-name descname">pkr_verification</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.pkr_verification" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">pkr_verification</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Craft and authenticates the new public key message with the saved merkle root.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -411,8 +410,8 @@ cross-authentication.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.set_merkle_root">
-<code class="sig-name descname">set_merkle_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">merkle_root</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.set_merkle_root" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">set_merkle_root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">merkle_root</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Change the value of the Merkle Tree root node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -422,8 +421,8 @@ cross-authentication.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.set_size">
-<code class="sig-name descname">set_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.set_size" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">set_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field_name</span></em>, <em class="sig-param"><span class="n">size</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Modify the size of the field with the field_name received as parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -436,8 +435,8 @@ cross-authentication.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="osnma_core.OSNMACore.tesla_key_verification">
-<code class="sig-name descname">tesla_key_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">gst_wn</span></em>, <em class="sig-param"><span class="n">gst_tow</span></em>, <em class="sig-param"><span class="n">position</span></em>, <em class="sig-param"><span class="n">svid</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#osnma_core.OSNMACore.tesla_key_verification" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname">tesla_key_verification</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">gst_wn</span></em>, <em class="sig-param"><span class="n">gst_tow</span></em>, <em class="sig-param"><span class="n">position</span></em>, <em class="sig-param"><span class="n">svid</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Authenticates a TESLA key with the gst_wn and gst_tow from when it has been received.
 It also needs the position of the key in the mack block. The rest of the necessary data must
 be uploaded to the object before</p>
@@ -482,15 +481,11 @@ be uploaded to the object before</p>
 
 
 <h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">OSNMACore Class</a></li>
-</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to osnma_core’s documentation!</a></li>
   </ul></li>
 </ul>
 </div>
