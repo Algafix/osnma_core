@@ -3,7 +3,7 @@
 osnma_core
 ========
 
-Working in an official implementation and complete refactor of the receiver that will be published in July. Until then, don't expect any update.
+Working on an official implementation and complete refactor of the receiver that will be published in July. Until then, don't expect any update.
 ========
 
 osnma_core is a helpfull package that will provide a bunch of methods and atributes to
