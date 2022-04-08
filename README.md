@@ -3,7 +3,7 @@
 osnma_core
 ========
 
-Working on an official implementation and complete refactor of the receiver that will be published in July. Until then, don't expect any update.
+Discontinued. Official updated version on: https://github.com/Algafix/OSNMA
 ========
 
 osnma_core is a helpfull package that will provide a bunch of methods and atributes to
